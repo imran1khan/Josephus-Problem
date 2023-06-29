@@ -1,0 +1,29 @@
+//Given N people standing in a circle where 1st is having a sword, find the luckiest person in the circle, 
+//if, from 1st soldier who is having a sword each has to kill the next soldier and handover the sword to next soldier, 
+//in turn, the soldier will kill the adjacent soldier and handover the sword to next soldier such that one soldier remains in this war who is not killed by anyone.
+
+// this formula is going to work only this question
+// so if you tuist this question in any way it's not going to work
+
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n = 46;
+	int i = 2;
+	while (i<n)
+	{
+		i = i * 2;
+	}
+	if (i==n)
+	{
+		cout << 1;
+	}
+	else
+	{
+		i = i / 2;
+		int n2 = n - i;
+		int luckynum = 2 * n2 + 1;
+		cout << luckynum << endl;
+	}
+}
