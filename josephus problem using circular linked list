@@ -1,0 +1,96 @@
+// Josephus Problem  using circular linked list
+
+#include<iostream>
+using namespace std;
+class Node
+{
+public:
+	int data = 0;
+	Node* next = NULL;
+	Node(int data) 
+	{
+		this->data = data;
+		this->next = NULL;
+	}
+	Node() {}
+	~Node() {}
+private:
+};
+////////////////////////////////////////////////////////////////////
+void printlist(Node*head) 
+{
+	Node* c = head;
+	do
+	{
+		cout << c->data << ",";
+		c = c->next;
+	} while (c != head);
+	cout << "\n";
+}
+////////////////////////////////////////////////////////////////////
+void joshefproblem(Node*&head,int k) 
+{
+	if (k==1)
+	{
+		return;
+	}
+	int c = 1;
+	int i = 1;
+	Node* current = head;
+	Node* previous = NULL;
+	while (current->next!=current)
+	{
+		while (c != k)
+		{
+			c++;
+			previous = current;
+			current = current->next;
+		}
+		Node* temp = previous->next;
+		cout << i << " delete node = " << temp->data << endl;
+		i++;
+		previous->next = current->next;
+		current = current->next;
+		delete temp;
+		c = 1;
+	}
+	head = current;
+}
+////////////////////////////////////////////////////////////////
+int main()
+{
+	int num = 100;
+	Node* head = NULL;
+	//fisrst node created
+	head = new Node(1);
+	head->next = head;
+	for (int i = 2; i <= num; i++)
+	{
+		Node* temp = new Node();
+		temp->data=head->data;
+		head->data = i;
+		temp->next = head->next;
+		head->next = temp;
+		head = temp;
+	}
+	printlist(head);
+
+/////////// the below  is one way tosolve this ///////////////
+// from this way we can solve the puzzel but not for any (k th) position
+	//Node* temp;
+	//while (head->next!=head)
+	//{
+	//	temp = head;
+	//	head = head->next;
+	//	temp->next = head->next;
+	//	delete head;
+	//	head = temp->next;
+	//	temp = temp->next;
+	//}
+
+//// below is the function which can solve the puzzel at any (kth) position //////
+
+	joshefproblem(head,2);
+	cout << endl << "the winner is = ";
+	printlist(head);
+}
